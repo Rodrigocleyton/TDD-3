@@ -1,0 +1,84 @@
+TDD
+devemos seguir um ciclo de processo.
+1-Escrevemos um teste que falha , adicionamos implementação, 
+2-O teste passa, o código é refatorado 
+3-o fluxo se repete até que as funções fiquem atômicas com a menor interdependência possível
+*criar os testes de acordo com as especifícações
+
+
+BDD
+Conjunto de práticas usados junto com TDD
+Tem uma relação mais próxima com a area de negócios
+*Detalhar 
+
+
+seed é um padrão para gerar base de dados
+npm run seed
+npm i -D faker        biblioteca para criar dados falsos
+
+restaurar as dependencias sem ter problemas de versão npm ci
+
+*A camda service é responsável pelas regras de negócios
+*Quando chagar na parte criação da pasta unitTest baixar o mocha,  nyc e o sinon npm i -D mocha@8 nyc@15 sinon@9 n
+
+Projeto 
+
+#Story: Renting a car
+
+case 1
+
+As a system user
+
+In order to get an available car in a specific category
+
+Given a car category containing 3 different cars
+
+When I check if there's a car available
+
+Then it should choose randomly a car from the category chosen
+
+Primeiro criar a estrutura, as camadas para depois começar a escrever so códigos
+## Use Case 02
+
+As a system user
+
+In order to calculate the final renting price
+
+Given a customer who wants to rent a car for 5 days
+
+And he is 50 years old
+
+When he chooses a car category that costs $37.6 per day
+
+Then I must add the Tax of his age which is 30% to the car category price
+
+Then the final formula will be `((price per day * Tax) * number of days)`
+
+And the final result will be `((37.6 * 1.3) * 5)= 244.4`
+
+And the final price will be printed in Brazilian Portuguese format as "R$ 244,40"
+
+
+
+
+## Use Case 03
+
+As a system user
+
+In order to register a renting transaction
+
+Given a registered customer who is 50 years old
+
+And a car model that costs $37.6 per day
+
+And a delivery date that is for 05 days behind
+
+And given an actual date 05/11/2020
+
+When I rent a car I should see the customer data
+
+And the car selected
+
+And the final price which will be R$ 244,40
+
+And DueDate which will be printed in Brazilian Portuguese format "10  Novembro de 2020"

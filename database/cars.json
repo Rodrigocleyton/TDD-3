@@ -1,0 +1,23 @@
+[
+    {
+        "id": "eaa2dbe3-1688-4717-af39-f25a9a527e20",
+        "name": "Taurus",
+        "releaserYear": 2022,
+        "available": true,
+        "gasAvailable": true
+    },
+    {
+        "id": "f7fb4297-34d6-404c-b2f6-06c6087fa109",
+        "name": "Model S",
+        "releaserYear": 2022,
+        "available": true,
+        "gasAvailable": true
+    },
+    {
+        "id": "ad950f06-857e-4081-b648-d26b5fbb777a",
+        "name": "Accord",
+        "releaserYear": 2022,
+        "available": true,
+        "gasAvailable": true
+    }
+]
