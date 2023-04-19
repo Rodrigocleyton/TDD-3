@@ -6,14 +6,14 @@ const Tax = require('./../entities/tax')
 class CarService {
     constructor({ cars }) {
         this.carRepository = new BaseRepository({ file: cars })
-
+        this.taxesBasedOnAge = Tax.taxesBasedOnAge
         //api localization usada ao invés de template string. o indicado seria criar outra classe
         this.currencyFormat = new Intl.NumberFormat('pt-br', {
             style: 'currency',
             currency: 'BRL'
-        }).format(244.40)
+        })
         
-        this.taxesBasedOnAge = Tax.taxesBasedOnAge
+        
 
 
 

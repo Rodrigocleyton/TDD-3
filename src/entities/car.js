@@ -4,7 +4,7 @@ class Car extends Base{
     constructor({ id, name, releaserYear, available, gasAvailable }) {
         super({ id, name})
         
-        this.releaserYear =releaserYear
+        this.releaserYear = releaserYear
         this.available = available
         this.gasAvailable = gasAvailable
     }
