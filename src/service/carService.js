@@ -4,18 +4,22 @@ const Tax = require('./../entities/tax')
 //criação da classe
 
 class CarService {
-    constructor({cars}) {
-        this.carRepository = new BaseRepository({ file:cars })
-        this.taxesBasedOnAge = Tax.taxesBasedOnAge
+    constructor({ cars }) {
+        this.carRepository = new BaseRepository({ file: cars })
+
         //api localization usada ao invés de template string. o indicado seria criar outra classe
         this.currencyFormat = new Intl.NumberFormat('pt-br', {
             style: 'currency',
             currency: 'BRL'
         }).format(244.40)
+        
+        this.taxesBasedOnAge = Tax.taxesBasedOnAge
+
+
 
     }
     /*
-    test(id){
+    test(id){       
         return this.carRepository.find(id)
     }
     */
@@ -42,13 +46,19 @@ class CarService {
         return car
     }
 
-    async calculateFinalPrice(customer, carCategory, numberOfDays) {
+     calculateFinalPrice(customer, carCategory, numberOfDays) {
         const { age } = customer
         const price = carCategory.price
-        const { then } = this.taxesBasedOnAge
+        const { then: tax } = this.taxesBasedOnAge
             .find(tax => age >= tax.from && age <= tax.to)
-            console.log('then', then)
+
+          //  console.log('then', then)
+
+        const finalPrice = ((tax * price) * (numberOfDays))
+        const formattedPrice = this.currencyFormat.format(finalPrice)
+        return formattedPrice
     }
+    
 }
 
 module.exports = CarService
