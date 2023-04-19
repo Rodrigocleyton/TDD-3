@@ -5,6 +5,7 @@ const  { join } = require('path')
 //não se assert em BDD, EM BDD é tudo mais semântico, falado, para que qualquer pessoa possa entender a regra de negócio com mais facilidade
 //const assert = require('assert')
 const { expect } = require('chai')//dentro dele vem o expert e outros módulos para asserssão. Padrão BDD
+const carService = require('./../../src/service/carService')
 const sinon = require('sinon')
 
 //busca dentro da pasta database
@@ -95,7 +96,7 @@ describe('carService Suite Tests', () => {
     })
 
     it('give a carCategory, customer ande numberOfDays it should calculate final amount in real', async () => {
-        const customer = Object.create(mocks.validCustomer)//evita que seja alterado
+        const customer = Object.create(mocks.validCustomer)//evita que seja alterado o valor  de mocks
         customer.age = 50
 
         const carCategory = Object.create(mocks.validCarCategory)
@@ -103,8 +104,8 @@ describe('carService Suite Tests', () => {
 
         const numberOfDays = 5
 
-        const expected = carService.currencyFormat.format(244,40)
-        //console.log('expected', expected)
+        const expected = carService.currencyFormat.format(244.40)
+        console.log('expected', expected)
         const result = carService.calculateFinalPrice(
             customer,
             carCategory,
