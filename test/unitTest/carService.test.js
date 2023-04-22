@@ -7,6 +7,7 @@ const  { join } = require('path')
 const { expect } = require('chai')//dentro dele vem o expert e outros módulos para asserssão. Padrão BDD
 
 const sinon = require('sinon')
+const Transaction = require('./../../src/entities/transaction')
 
 //busca dentro da pasta database
 const carsDatabase = join(__dirname, './../../database', "cars.json")
@@ -20,6 +21,7 @@ const mocks = {
 //suite de testes
 describe('carService Suite Tests', () => {
     let carService = {}
+    let sandbox = {}
     //usando o before antes de rodar qualquer teste o service será iniciado
     before(()=> {
         carService = new CarService({
@@ -39,7 +41,7 @@ describe('carService Suite Tests', () => {
         sandbox.restore()
     })
 
-    it('should retrieve a random positionfrom an array' , () => {
+    it('should retrieve a random position from an array' , () => {
         const data = [0, 1, 2, 3, 4]
         const result = carService.getRandomPositionFromArray(data)
         //é esperado um valor menor do que o data.length e precisa ser maior ou igual a  0
@@ -91,7 +93,7 @@ describe('carService Suite Tests', () => {
         //assert.deepStrictEqual(result, expected)
         //console.log('result', result)
         expect(carService.chooseRandomCar.calledOnce).to.be.ok
-        //expect(carService.carRepository.find.calledWithExactly(car.id)).to.be.ok
+        expect(carService.carRepository.find.calledWithExactly(car.id)).to.be.ok
         expect(result).to.be.deep.equal(expected)
     })
 
@@ -102,6 +104,13 @@ describe('carService Suite Tests', () => {
         const carCategory = Object.create(mocks.validCarCategory)
         carCategory.price = 37.6
         const numberOfDays = 5
+
+        //não depender de dados externos
+        sandbox.stub(
+            carService,
+            "taxesBasedOnAge"//para propiedades não coloca o .name mas caso altere, não esquecer de alterar em tudo
+            //caso alguém tente alterar o valor, retornará com esses dados fixos
+        ).get(() => [{ from: 40, to:50, then: 1.3 }])
         
         const expected = carService.currencyFormat.format(244.40)
         //console.log('expected', expected)
@@ -113,6 +122,63 @@ describe('carService Suite Tests', () => {
 
         expect(result).to.be.equal(expected)
 
+    })
+
+    it('given a customer and a car category it should return a transaction receipt', async () => {
+        const car = mocks.validCar
+        const carCategory = {
+            //rest spread , recebe todas as propiedades que estão no mocks pelos valores abaixo. Cria um objeto novo sem sujar os mocks. Usado quando tem mais de um objeto
+            ...mocks.validCarCategory,
+            price: 37.6,
+            carIds: [car.id]
+        }
+
+        const customer = Object.create(mocks.validCustomer)
+        customer.age = 20
+
+        const numberOfDays = 5
+
+        const dueDate = "10 de Novembro de 2020"
+
+        const now = new Date(2020, 10, 5)
+        sandbox.useFakeTimers(now.getTime())// moca uma data
+       // console.log("now 01", now)
+        //console.log("now 02", new Date())
+        //age: 20, taxi:1.1, categoryPrice: 37.6
+        //37.6 * 1.1 = 41.36 * 5 days = 206.8
+        
+        sandbox.stub(
+            carService.carRepository,
+            carService.carRepository.find.name,
+        ).resolves(car)
+
+
+        const expectedAmount = carService.currencyFormat.format(206.80)
+
+        const result = await carService.rent(
+            customer, carCategory, numberOfDays
+        )
+       
+        const expected = new Transaction({
+            customer,
+            car,
+            dueDate,
+            amount: expectedAmount,
+
+        })
+
+        expect(result).to.be.deep.equal(expected)
+
+        //api de data do JS
+        /*
+        const today = new Date()
+        const options = {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        }
+        console.log('today', today.toLocaleDateString("pt-br", options))
+        */
     })
     
 })

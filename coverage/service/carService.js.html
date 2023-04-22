@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">63.63% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/22</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">63.63% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/22</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -124,9 +124,7 @@
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -134,14 +132,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -175,16 +173,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -197,20 +193,20 @@ const Tax = require('./../entities/tax')
 class CarService {
     constructor({ cars }) {
         this.carRepository = new BaseRepository({ file: cars })
-&nbsp;
+        this.taxesBasedOnAge = Tax.taxesBasedOnAge
         //api localization usada ao invés de template string. o indicado seria criar outra classe
         this.currencyFormat = new Intl.NumberFormat('pt-br', {
             style: 'currency',
             currency: 'BRL'
-        }).format(244.40)
+        })
         
-        this.taxesBasedOnAge = Tax.taxesBasedOnAge
+        
 &nbsp;
 &nbsp;
 &nbsp;
     }
     /*
-    test(id){
+    test(id){       
         return this.carRepository.find(id)
     }
     */
@@ -237,17 +233,15 @@ class CarService {
         return car
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >     ca</span>lculateFinalPrice(customer, carCategory, numberOfDays) {
-        const { age } = <span class="cstat-no" title="statement not covered" >customer</span>
-        const price = <span class="cstat-no" title="statement not covered" >carCategory.price</span>
-        const { then: tax } = <span class="cstat-no" title="statement not covered" >this.taxesBasedOnAge</span>
-            .find(<span class="fstat-no" title="function not covered" >ta</span>x =&gt; <span class="cstat-no" title="statement not covered" >age &gt;= tax.from &amp;&amp; age &lt;= tax.to)</span>
+     calculateFinalPrice(customer, carCategory, numberOfDays) {
+        const { age } = customer
+        const price = carCategory.price
+        const { then: tax } = this.taxesBasedOnAge
+            .find(tax =&gt; age &gt;= tax.from &amp;&amp; age &lt;= tax.to)
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            console.log('then', then)</span>
-&nbsp;
-        const finalPrice = (<span class="cstat-no" title="statement not covered" >(tax * price) * (numberOfDays))</span>
-        const formattedPrice = <span class="cstat-no" title="statement not covered" >this.currencyFormat.format(finalPrice)</span>
-<span class="cstat-no" title="statement not covered" >        return formattedPrice</span>
+        const finalPrice = ((tax * price) * (numberOfDays))
+        const formattedPrice = this.currencyFormat.format(finalPrice)
+        return formattedPrice
     }
     
 }
@@ -259,7 +253,7 @@ module.exports = CarService</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-04-19T17:55:19.920Z
+                at 2023-04-19T23:57:59.157Z
             </div>
         <script src="../prettify.js"></script>
         <script>
