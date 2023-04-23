@@ -39,7 +39,7 @@ class CarService {
         //escolhe um carro dinamicamente
         const carId = this.chooseRandomCar(carCategory)
         const car = await this.carRepository.find(carId)
-        
+
         return car
     }
 
@@ -74,7 +74,7 @@ class CarService {
             car,
             amount: finalPrice
         })
-        
+        //console.log('transaction', transaction)
         return transaction;
     }
     
