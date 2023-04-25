@@ -138,7 +138,7 @@ describe('carService Suite Tests', () => {
 
         const numberOfDays = 5
 
-        const dueDate = "10 de Novembro de 2020"
+        const dueDate = "10 de novembro de 2020"
 
         const now = new Date(2020, 10, 5)
         sandbox.useFakeTimers(now.getTime())// moca uma data
